@@ -9,7 +9,7 @@ interface CurrencyApi {
 
     @GET("/latest")
     suspend fun getRates(
-        @Query("base") base: String
+        /*@Query("symbols") base: String,*/ @Query("access_key") accessKey: String = "2370b16a10f09b990710c947770c0cff"
     ): Response<CurrencyResponse>
 
 }

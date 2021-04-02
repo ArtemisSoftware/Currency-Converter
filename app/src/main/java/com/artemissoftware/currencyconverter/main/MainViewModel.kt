@@ -29,7 +29,7 @@ class MainViewModel @ViewModelInject constructor(
     private val _conversion = MutableStateFlow<CurrencyEvent>(CurrencyEvent.Empty)
     val conversion: StateFlow<CurrencyEvent> = _conversion
 
-    fun convert(amountStr: String, fromCurrency: String, toCurrency: String) {
+    fun convert(amountStr: String, toCurrency: String) {
 
         val fromAmount = amountStr.toFloatOrNull()
 
@@ -42,7 +42,7 @@ class MainViewModel @ViewModelInject constructor(
 
             _conversion.value = CurrencyEvent.Loading
 
-            when(val ratesResponse = repository.getRates(fromCurrency)) {
+            when(val ratesResponse = repository.getRates(toCurrency)) {
 
                 is Resource.Error -> _conversion.value = CurrencyEvent.Failure(ratesResponse.message!!)
 
@@ -56,7 +56,7 @@ class MainViewModel @ViewModelInject constructor(
                     } else {
 
                         val convertedCurrency = round((fromAmount * rate * 100.0)) / 100
-                        _conversion.value = CurrencyEvent.Success("$fromAmount $fromCurrency = $convertedCurrency $toCurrency")
+                        _conversion.value = CurrencyEvent.Success("$fromAmount = $convertedCurrency $toCurrency")
                     }
                 }
 
@@ -67,6 +67,7 @@ class MainViewModel @ViewModelInject constructor(
 
 
     private fun getRateForCurrency(currency: String, rates: Rates) = when (currency) {
+        "AED" -> rates.aED
         "CAD" -> rates.cAD
         "HKD" -> rates.hKD
         "ISK" -> rates.iSK
@@ -99,6 +100,6 @@ class MainViewModel @ViewModelInject constructor(
         "GBP" -> rates.gBP
         "KRW" -> rates.kRW
         "MYR" -> rates.mYR
-        else -> null
+        else -> 0.0
     }
 }
