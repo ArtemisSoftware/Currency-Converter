@@ -1,4 +1,4 @@
-package com.artemissoftware.currencyconverter.daya.models
+package com.artemissoftware.currencyconverter.data.models
 
 
 import com.google.gson.annotations.SerializedName
