@@ -80,4 +80,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha03'
 }
